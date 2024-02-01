@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Bubbling</title>
+    <style>
+        .child{
+            background-color: aliceblue;
+            border: 2px solid black;
+            padding: 14px;
+            margin: 14px;
+            cursor: pointer;
+        }
+
+        .childContainer{
+            background-color: rgb(219, 219, 104);
+            padding: 14px;
+            margin: 14px;
+            cursor: pointer;
+        }
+
+        .container{
+            background-color: blueviolet;
+            padding: 14px;
+            margin: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Event bubbling -> When any event listener is used on a element who is have parents also then fires events for its parents so to stop it we use event bubbling   -->
+    <div class="container">
+        <section class="childContainer">
+            <div class="child">
+                I am a child
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.querySelector(".child").addEventListener("click", (e)=>{
+            e.stopPropagation()   //Ab agr main click krunga iss child pr toh sirf ye wala alert ayega aur baki ke uske parent ke alert nhi ayenge..... uske parent ke events nhi fire honge
+            alert("child was clicked")
+        })
+
+        document.querySelector(".childContainer").addEventListener("click", (e)=>{
+            e.stopPropagation()
+            alert("child Container was clicked")
+        })
+
+        document.querySelector(".container").addEventListener("click", (e)=>{
+            alert("Container was clicked")
+        })
+
+
+        // we can also remove event listener in the way we added
+        // make variable etc
+        // element.removeEventListener(event, handeler)
+
+        
+        // Random color Generator
+        function getRandomColor() {
+            let val1 = Math.ceil(0 + Math.random() * 255);
+            let val2 = Math.ceil(0 + Math.random() * 255);
+            let val3 = Math.ceil(0 + Math.random() * 255);
+            return `rgb(${val1}, ${val2}, ${val3})`
+        }
+
+        //setInterval --> if i want something to happen again and again after 2 seconds
+        // it is a function which takes function and time 
+
+        // let a = setInterval(() => {
+        //     document.querySelector(".childContainer").style.background = getRandomColor();
+        // }, 1000);
+
+        // console.log(a); 
+        //clearinterval() to stop this setInterval
+
+
+        // setTimeout --> runs only one time aftera certain period of time
+        let a = setTimeout(() => {
+            document.querySelector(".childContainer").style.background = getRandomColor();
+        }, 2000);
+
+        console.log(a); 
+
+        // clearTimeout(1) --> to stop setTimeout
+
+
+    </script>
+</body>
+</html>
